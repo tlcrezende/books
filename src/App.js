@@ -1,32 +1,22 @@
-import { useState } from 'react';
-import BookCreate from './components/BookCreate';
-import BookList from './components/BookList';
+import { useEffect, useContext } from "react";
+import BookCreate from "./components/BookCreate";
+import BookList from "./components/BookList";
+import { Provider } from "./context/books";
+import BooksContext from "./context/books";
 
 function App() {
-  const [books, setBooks] = useState([]);
+  const { fetchBooks } = useContext(BooksContext);
 
-  const deleteBookById = (id) => {
-    const updatedBooks = books.filter((book) => {
-        return book.id !== id;
-      });
+  useEffect(() => {
+    fetchBooks();
+  }, []);
 
-      setBooks(updatedBooks);
-    }
-
-  const createBook = (title) => {
-    const updatedBooks = [
-      ...books,
-      { id: Math.round(Math.random() * 999), title}
-    ];
-
-    setBooks(updatedBooks);
-
-  };
-
-  return <div className="app">
-    <BookList books={books} onDelete={deleteBookById}/>
-    <BookCreate onCreate={createBook} />
-  </div>;
+  return (
+    <div className="app">
+      <BookList />
+      <BookCreate />
+    </div>
+  );
 }
 
 export default App;
