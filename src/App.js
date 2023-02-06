@@ -1,7 +1,6 @@
 import { useEffect, useContext } from "react";
 import BookCreate from "./components/BookCreate";
 import BookList from "./components/BookList";
-import { Provider } from "./context/books";
 import BooksContext from "./context/books";
 
 function App() {
